@@ -15,7 +15,7 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (!$request->user() || !$request->user()->roles()->whereIn('name', $roles)->exists()) {
+        if (!$request->user() || !$request->user()->roles->whereIn('name', $roles)->count()) {
             return response()->json(['message' => 'Forbidden'], 403);
         }
         
