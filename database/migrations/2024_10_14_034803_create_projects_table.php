@@ -12,12 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('endorsements', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('skill_id');
-            $table->unsignedBigInteger('endorsed_by');
-            $table->foreign('skill_id')->references('id')->on('skills')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('endorsed_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('name');
+            $table->string('technology');
+            $table->text('github_link');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('endorsements');
+        Schema::dropIfExists('projects');
     }
 };
