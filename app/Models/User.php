@@ -9,6 +9,9 @@ use Illuminate\Notifications\Notifiable;
 
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Project;
+use App\Models\Skill;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -49,11 +52,21 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'role_user');
     }
 
     public function hasRole($role)
     {
         return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function skills()
+    {
+        return $this->hasMany(Skill::class);
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 use App\Models\User;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
@@ -38,6 +39,11 @@ class AuthController extends Controller
                     'password' => bcrypt(Str::random(16)),
                     // Add more fields as necessary
                 ]);
+
+                $defaultRole = Role::where('name', 'student')->first(); // Make sure 'default' role exists
+                if ($defaultRole) {
+                    $user->roles()->attach($defaultRole->id);
+                }
 
                 Auth::login($user);
             }
