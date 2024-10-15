@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EndorsementController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ExperienceRoleController;
 use App\Http\Controllers\ProjectController;
@@ -24,4 +25,7 @@ Route::middleware(['role:student', 'auth:sanctum'])->group(function () {
     Route::resource('exp/roles', ExperienceRoleController::class);
 
     Route::resource('exp/skills', SkillController::class);
+
+    Route::get('user/{userId}/endorsements', [EndorsementController::class, 'show']);
+    Route::resource('endorsements', EndorsementController::class);
 });

@@ -79,7 +79,7 @@ class SkillController extends Controller
     }
 
     /**
-     * Show a single skill.
+     * Show all skills from an experience.
      */
     public function show($experienceId)
     {
