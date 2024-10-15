@@ -25,14 +25,13 @@ class SkillController extends Controller
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'user_id' => 'required|exists:users,id',
             'exp_id' => 'required|exists:experiences,id',
         ]);
 
         // Create the skill
         $skill = Skill::create([
             'name' => $request->name,
-            'user_id' => $request->user_id,
+            'user_id' => $request->user()->id,
             'exp_id' => $request->exp_id,
         ]);
 

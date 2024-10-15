@@ -8,11 +8,12 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ExperienceRoleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\StudiesController;
 
 Route::get('auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
-Route::middleware(['role:student', 'auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:student'])->group(function () {
     Route::get('users/{userId}/projects', [ProjectController::class, 'getUserProjects']);
     Route::get('users/projects', [ProjectController::class, 'getAuthenticatedUserProjects']);
     Route::resource('projects', ProjectController::class);
@@ -28,4 +29,7 @@ Route::middleware(['role:student', 'auth:sanctum'])->group(function () {
 
     Route::get('user/{userId}/endorsements', [EndorsementController::class, 'show']);
     Route::resource('endorsements', EndorsementController::class);
+
+    Route::get('user/{userId}/studies', [StudiesController::class, 'show']);
+    Route::resource('studies', StudiesController::class);
 });
