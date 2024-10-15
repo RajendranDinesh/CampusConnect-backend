@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ExperienceRoleController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SkillController;
 
 Route::get('auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
@@ -21,4 +22,6 @@ Route::middleware(['role:student', 'auth:sanctum'])->group(function () {
 
     Route::get('exp/{experienceId}/roles', [ExperienceRoleController::class, 'index']);
     Route::resource('exp/roles', ExperienceRoleController::class);
+
+    Route::resource('exp/skills', SkillController::class);
 });
